@@ -41,8 +41,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
             phoneNoError.textContent = e;
         }
     });
+
     const form = document.getElementById('form');
     form.addEventListener('submit', save);
+
+    const cancelIcon = document.getElementById('cancel-icon');
+    cancelIcon.addEventListener('click', cancel);
 })
 
 const save = (event) => {
@@ -56,8 +60,12 @@ const save = (event) => {
     }
 }
 
-const resetForm = () => {
-    console.log("Reset called");
+const cancel = () => {
+    try {
+        location.href = '../pages/homePage.html';
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 const createContactInAddressBook = () => {
@@ -77,7 +85,7 @@ const getFormData = (contact) => {
     return contact;
 }
 
-function createAndUpdateStorage(contact) {
+const createAndUpdateStorage = (contact) => {
     let addressBookList = JSON.parse(localStorage.getItem("AddressBookList"));
     if (addressBookList != undefined) {
         addressBookList.push(contact);
@@ -87,4 +95,18 @@ function createAndUpdateStorage(contact) {
     alert(addressBookList.toString());
     localStorage.setItem("AddressBookList", JSON.stringify(addressBookList));
     location.href = '../pages/homePage.html';
+}
+
+const resetForm = () => {
+    setValue('#firstName', '');
+    setValue('#address', '');
+    setValue('#city', '');
+    setValue('#state', '');
+    setValue('#phone', '');
+    setValue('#zip', '');
+}
+
+const setValue = (id, value) => {
+    const element = document.querySelector(id);
+    element.value = value;
 }

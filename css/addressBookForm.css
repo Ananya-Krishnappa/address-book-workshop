@@ -91,6 +91,7 @@ body {
     position: absolute;
     right: 15px;
     top: 23px;
+    cursor: pointer;
 }
 
 .row-content {
@@ -128,6 +129,11 @@ label {
     border: 1px solid#ccc;
     border-radius: 4px;
     resize: vertical;
+}
+
+.input:focus-visible,select:focus-visible {
+    border: 1px solid #008CFF;
+    outline: none;
 }
 
 #zip {
