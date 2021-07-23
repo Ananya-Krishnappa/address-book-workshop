@@ -41,4 +41,16 @@ window.addEventListener('DOMContentLoaded', (event) => {
             phoneNoError.textContent = e;
         }
     });
+    const form = document.getElementById('form');
+    form.addEventListener('submit', save);
 })
+
+function save(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log("Submit called");
+}
+
+const resetForm = () => {
+    console.log("Reset called");
+}

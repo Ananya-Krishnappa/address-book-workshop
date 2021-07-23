@@ -23,7 +23,7 @@
         </div>
     </header>
     <div class="form-content">
-        <form action="#" class="form" name="form">
+        <form action="#" class="form" name="form" id="form" onreset="resetForm()">
             <div class="form-head">
                 <span>PERSON ADDRESS FORM</span>
                 <i id="cancel-icon" class="fa fa-times-circle"></i>
@@ -70,6 +70,10 @@
                     <label class="label text" for="zip">Zip Code</label>
                     <input class="input" type="text" name="zip" id="zip">
                 </div>
+            </div>
+            <div class="add-reset">
+                <button class="addButton button" type="submit" id="addButton">Add</button>
+                <button class="resetButton button" type="reset" id="resetButton">Reset</button>
             </div>
         </form>
     </div>
