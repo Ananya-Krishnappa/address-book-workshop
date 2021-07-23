@@ -48,9 +48,30 @@ window.addEventListener('DOMContentLoaded', (event) => {
 function save(event) {
     event.preventDefault();
     event.stopPropagation();
-    console.log("Submit called");
+    try {
+        let contact = createContactInAddressBook();
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 const resetForm = () => {
     console.log("Reset called");
+}
+
+function createContactInAddressBook() {
+    let contact = new Contact();
+    contact._id = new Date().getTime();
+    return getFormData(contact);
+}
+
+function getFormData(contact) {
+    contact._firstName = document.forms["form"]["firstName"].value;
+    contact._address = document.forms["form"]["address"].value;
+    contact._city = document.forms["form"]["city"].value;
+    contact._state = document.forms["form"]["state"].value;
+    contact._phoneNumber = document.forms["form"]["phone"].value;
+    contact._zip = document.forms["form"]["zip"].value;
+    console.log(contact.toString());
+    return contact;
 }

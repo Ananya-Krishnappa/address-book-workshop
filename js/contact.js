@@ -2,7 +2,12 @@
  * Validate the inputs that are added to the contact in address book
  */
 class Contact {
-    id;
+    get id() {
+        return this._id;
+    }
+    set id(id) {
+        this._id = id;
+    }
     get firstName() {
         return this._firstName;
     }
