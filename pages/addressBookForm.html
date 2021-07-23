@@ -26,6 +26,47 @@
                 <span>PERSON ADDRESS FORM</span>
                 <i id="cancel-icon" class="fa fa-times-circle"></i>
             </div>
+            <div class="row-content">
+                <label class="label text" for="firstName">Full Name</label>
+                <input class="input" type="text" name="firstName" id="firstName">
+                <error-output class="text-error" for="text"></error-output>
+            </div>
+            <div class="row-content">
+                <label for="phone" class="label text">Phone Number</label>
+                <input class="input" type="tel" name="phone" id="phone">
+            </div>
+            <div class="row-content">
+                <label for="address" class="label text">Address</label>
+                <textarea class="input" name="address" id="address" style="height: 100px"></textarea>
+            </div>
+            <div class="row-content-address">
+                <div class="city-container subAddress">
+                    <label class="label text" for="city">Select City</label>
+                    <select name="city" id="city">
+                        <option value="Bengaluru">Bengaluru</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Pune">Pune</option>
+                        <option value="Mysore">Mysore</option>
+                        <option value="Shimoga">Shimoga</option>
+                        <option value="Chikmagalur">Chikmagalur</option>
+                    </select>
+                </div>
+                <div class="state-container subAddress">
+                    <label class="label text" for="state">Select State</label>
+                    <select name="state" id="state">
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Tamilnadu">Tamilnadu</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Delhi">Delhi</option>
+                    </select>
+                </div>
+                <div class="zip-container subAddress">
+                    <label class="label text" for="zip">Zip Code</label>
+                    <input class="input" type="text" name="zip" id="zip">
+                </div>
+            </div>
         </form>
     </div>
 </body>
