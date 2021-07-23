@@ -50,6 +50,7 @@ const save = (event) => {
     event.stopPropagation();
     try {
         let contact = createContactInAddressBook();
+        createAndUpdateStorage(contact);
     } catch (e) {
         console.error(e);
     }
@@ -74,4 +75,16 @@ const getFormData = (contact) => {
     contact._zip = document.forms["form"]["zip"].value;
     console.log(contact.toString());
     return contact;
+}
+
+function createAndUpdateStorage(contact) {
+    let addressBookList = JSON.parse(localStorage.getItem("AddressBookList"));
+    if (addressBookList != undefined) {
+        addressBookList.push(contact);
+    } else {
+        addressBookList = [contact]
+    }
+    alert(addressBookList.toString());
+    localStorage.setItem("AddressBookList", JSON.stringify(addressBookList));
+    location.href = '../pages/homePage.html';
 }
