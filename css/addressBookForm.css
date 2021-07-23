@@ -151,3 +151,10 @@ select {
     color: #42515f;
     background-color: transparent;
 }
+
+.text-error {
+    margin: 10px;
+    font-size: 12px;
+    font-style: italic;
+    color: red;
+}

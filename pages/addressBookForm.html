@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/addressBookForm.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="../js/contact.js"></script>
+    <script src="../js/addressBookFormService.js"></script>
     <title>Address Book App</title>
 </head>
 
@@ -29,15 +31,17 @@
             <div class="row-content">
                 <label class="label text" for="firstName">Full Name</label>
                 <input class="input" type="text" name="firstName" id="firstName">
-                <error-output class="text-error" for="text"></error-output>
+                <error-output id="firstname-error" class="text-error" for="text"></error-output>
             </div>
             <div class="row-content">
                 <label for="phone" class="label text">Phone Number</label>
                 <input class="input" type="tel" name="phone" id="phone">
+                <error-output id="phone-error" class="text-error" for="text"></error-output>
             </div>
             <div class="row-content">
                 <label for="address" class="label text">Address</label>
                 <textarea class="input" name="address" id="address" style="height: 100px"></textarea>
+                <error-output id="address-error" class="text-error" for="text"></error-output>
             </div>
             <div class="row-content-address">
                 <div class="city-container subAddress">
