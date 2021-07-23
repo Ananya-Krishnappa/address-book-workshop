@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     height: 100%;
@@ -38,6 +42,53 @@ body {
     color: #42515F;
 }
 
-* {
-    box-sizing: border-box;
+#address-book-logo {
+    font-size: 50px;
+    margin: 0 5px;
+    color: #008CFF;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-content {
+    min-height: calc(100% -80px);
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    width: 65%;
+    padding: 44px 60px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #000029;
+    border: 1px solid #f5f5f5;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+.form-head {
+    opacity: 1;
+    padding: 20px 0;
+    background: #008CFF 0% 0% no-repeat padding-box;
+    font: normal normal normal 28px/37px Roboto;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    position: relative;
+}
+
+#cancel-icon {
+    position: absolute;
+    right: 15px;
+    top: 23px;
 }
