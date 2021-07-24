@@ -49,5 +49,8 @@ const remove = (node) => {
  * @param {*} node 
  */
 const update = (node) => {
-    console.log("Update called");
+    localStorage.removeItem("EditContact");
+    let contactToEdit = addressList.filter(contact => contact._id == node.name);
+    localStorage.setItem("EditContact", JSON.stringify(contactToEdit));
+    location.href = `../pages/addressBookForm.html?id=${contactToEdit[0]._id}`;
 }
