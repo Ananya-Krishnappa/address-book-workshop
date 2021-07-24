@@ -16,7 +16,7 @@ const createInnerHtml = () => {
         innerHtml = `${innerHtml}
         <tr>
             <td>${contact._firstName}</td>
-            <td>${contact._address}</td>
+            <td title="${contact._address}">${contact._address}</td>
             <td>${contact._city}</td>
             <td>${contact._state}</td>
             <td>${contact._zip}</td>

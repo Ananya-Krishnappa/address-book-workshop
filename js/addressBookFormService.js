@@ -51,19 +51,36 @@ window.addEventListener('DOMContentLoaded', (event) => {
 const save = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    try {
-        var elements = document.getElementsByClassName('text-error');
-        var errorElement = Array.prototype.filter.call(elements, function (element) {
-            return element.textContent !== '';
-        });
-        if (errorElement.length > 0) {
-            alert("Please fix the error to proceed");
-        } else {
-            let contact = createContactInAddressBook();
-            createAndUpdateStorage(contact);
+    var elements = document.getElementsByClassName('text-error');
+    var errorElement = Array.prototype.filter.call(elements, function (element) {
+        return element.textContent !== '';
+    });
+    if (errorElement.length > 0) {
+        alert("Please fix the error to proceed");
+    } else {
+        try {
+            let updateId = extractIdFromUrl();
+            if (!updateId) {
+                let contact = createContactInAddressBook();
+                createAndUpdateStorage(contact);
+            } else {
+                let addressBookList = JSON.parse(localStorage.getItem("AddressBookList"));
+                let existingContact = addressBookList.filter(contact => contact._id == updateId);
+                let editedContact = {
+                    ...existingContact
+                };
+                editedContact = getFormData(editedContact[0]);
+                addressBookList.forEach((element, index) => {
+                    if (element._id == editedContact._id) {
+                        addressBookList[index] = editedContact;
+                    }
+                });
+                localStorage.setItem("AddressBookList", JSON.stringify(addressBookList));
+            }
+            location.href = '../pages/homePage.html';
+        } catch (e) {
+            console.error(e);
         }
-    } catch (e) {
-        console.error(e);
     }
 }
 
