@@ -32,7 +32,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     phoneNo.addEventListener('input', function () {
         if (phoneNo.value.length == 0) {
             phoneNoError.textContent = "";
-            return;
         }
         try {
             (new Contact()).phoneNumber = phoneNo.value;
@@ -53,8 +52,16 @@ const save = (event) => {
     event.preventDefault();
     event.stopPropagation();
     try {
-        let contact = createContactInAddressBook();
-        createAndUpdateStorage(contact);
+        var elements = document.getElementsByClassName('text-error');
+        var errorElement = Array.prototype.filter.call(elements, function (element) {
+            return element.textContent !== '';
+        });
+        if (errorElement.length > 0) {
+            alert("Please fix the error to proceed");
+        } else {
+            let contact = createContactInAddressBook();
+            createAndUpdateStorage(contact);
+        }
     } catch (e) {
         console.error(e);
     }
