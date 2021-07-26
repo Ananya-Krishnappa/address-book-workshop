@@ -51,26 +51,34 @@ window.addEventListener('DOMContentLoaded', (event) => {
 const save = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    try {
-        let postUrl = "http://localhost:3000/AddressBook/";
-        let methodType = "POST";
-        let contact = createContactInAddressBook();
-        let id = extractIdFromUrl();
-        if (id) {
-            contact.id = id;
-            postUrl = `http://localhost:3000/AddressBook/${id}`;
-            methodType = "PUT";
+    var elements = document.getElementsByClassName('text-error');
+    var errorElement = Array.prototype.filter.call(elements, function (element) {
+        return element.textContent !== '';
+    });
+    if (errorElement.length > 0) {
+        alert("Please fix the error to proceed");
+    } else {
+        try {
+            let postUrl = "http://localhost:3000/AddressBook/";
+            let methodType = "POST";
+            let contact = createContactInAddressBook();
+            let id = extractIdFromUrl();
+            if (id) {
+                contact.id = id;
+                postUrl = `http://localhost:3000/AddressBook/${id}`;
+                methodType = "PUT";
+            }
+            makePromiseCall(methodType, postUrl, true, contact)
+                .then(responseText => {
+                    console.log("New Contact Added:" + responseText);
+                    location.href = '../pages/homePage.html';
+                })
+                .catch(error => {
+                    console.log(`${methodType} error status:` + JSON.stringify(error));
+                });
+        } catch (e) {
+            console.error(e);
         }
-        makePromiseCall(methodType, postUrl, true, contact)
-            .then(responseText => {
-                console.log("New Contact Added:" + responseText);
-                location.href = '../pages/homePage.html';
-            })
-            .catch(error => {
-                console.log(`${methodType} error status:` + JSON.stringify(error));
-            });
-    } catch (e) {
-        console.error(e);
     }
 }
 
