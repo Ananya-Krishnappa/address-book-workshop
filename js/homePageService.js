@@ -1,13 +1,17 @@
 let addressList;
 window.addEventListener('DOMContentLoaded', (event) => {
-    addressList = getAddressBookDataFromLocalStorage();
-    document.querySelector(".address-count").textContent = addressList.length;
-    createInnerHtml();
+    const getUrl = "http://localhost:3000/AddressBook/";
+    makePromiseCall("GET", getUrl, true)
+        .then(responseText => {
+            console.log("Get Contact Data:" + responseText);
+            addressList = JSON.parse(responseText);
+            document.querySelector(".address-count").textContent = addressList.length;
+            createInnerHtml();
+        })
+        .catch(error => {
+            console.log("Get error status:" + JSON.stringify(error));
+        });
 });
-
-const getAddressBookDataFromLocalStorage = () => {
-    return localStorage.getItem('AddressBookList') ? JSON.parse(localStorage.getItem('AddressBookList')) : [];
-}
 
 const createInnerHtml = () => {
     const headerHtml = "<th>FullName</th><th>Address</th><th>City</th><th>State</th><th>Zip Code</th><th>Phone Number</th><th></th>";
@@ -22,9 +26,9 @@ const createInnerHtml = () => {
             <td>${contact._zip}</td>
             <td>${contact._phoneNumber}</td>
             <td>
-                <img name="${contact._id}" onclick="remove(this)" 
+                <img name="${contact.id}" onclick="remove(this)" 
                     src="../assets/icons/delete-black-18dp.svg" alt="delete">
-                <img name="${contact._id}" onclick="update(this)"
+                <img name="${contact.id}" onclick="update(this)"
                     src="../assets/icons/create-black-18dp.svg" alt="edit">
             </td> 
         </tr>
@@ -38,8 +42,15 @@ const createInnerHtml = () => {
  * @param {*} node 
  */
 const remove = (node) => {
-    addressList = addressList.filter(contact => contact._id != node.name);
-    localStorage.setItem("AddressBookList", JSON.stringify(addressList));
+    const deleteUrl = `http://localhost:3000/AddressBook/${node.name}`;
+    //onreadystatechange is not called for synchronous request
+    makePromiseCall("DELETE", deleteUrl, false)
+        .then(responseText => {
+            console.log("Contact Deleted:" + responseText);
+        })
+        .catch(error => {
+            console.log("Delete error status:" + JSON.stringify(error));
+        });
     document.querySelector('.address-count').textContent = addressList.length;
     createInnerHtml();
 }
@@ -49,8 +60,5 @@ const remove = (node) => {
  * @param {*} node 
  */
 const update = (node) => {
-    localStorage.removeItem("EditContact");
-    let contactToEdit = addressList.filter(contact => contact._id == node.name);
-    localStorage.setItem("EditContact", JSON.stringify(contactToEdit));
-    location.href = `../pages/addressBookForm.html?id=${contactToEdit[0]._id}`;
+    location.href = `../pages/addressBookForm.html?id=${node.name}`;
 }

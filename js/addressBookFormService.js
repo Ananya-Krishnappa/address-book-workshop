@@ -51,36 +51,26 @@ window.addEventListener('DOMContentLoaded', (event) => {
 const save = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    var elements = document.getElementsByClassName('text-error');
-    var errorElement = Array.prototype.filter.call(elements, function (element) {
-        return element.textContent !== '';
-    });
-    if (errorElement.length > 0) {
-        alert("Please fix the error to proceed");
-    } else {
-        try {
-            let updateId = extractIdFromUrl();
-            if (!updateId) {
-                let contact = createContactInAddressBook();
-                createAndUpdateStorage(contact);
-            } else {
-                let addressBookList = JSON.parse(localStorage.getItem("AddressBookList"));
-                let existingContact = addressBookList.filter(contact => contact._id == updateId);
-                let editedContact = {
-                    ...existingContact
-                };
-                editedContact = getFormData(editedContact[0]);
-                addressBookList.forEach((element, index) => {
-                    if (element._id == editedContact._id) {
-                        addressBookList[index] = editedContact;
-                    }
-                });
-                localStorage.setItem("AddressBookList", JSON.stringify(addressBookList));
-            }
-            location.href = '../pages/homePage.html';
-        } catch (e) {
-            console.error(e);
+    try {
+        let postUrl = "http://localhost:3000/AddressBook/";
+        let methodType = "POST";
+        let contact = createContactInAddressBook();
+        let id = extractIdFromUrl();
+        if (id) {
+            contact.id = id;
+            postUrl = `http://localhost:3000/AddressBook/${id}`;
+            methodType = "PUT";
         }
+        makePromiseCall(methodType, postUrl, true, contact)
+            .then(responseText => {
+                console.log("New Contact Added:" + responseText);
+                location.href = '../pages/homePage.html';
+            })
+            .catch(error => {
+                console.log(`${methodType} error status:` + JSON.stringify(error));
+            });
+    } catch (e) {
+        console.error(e);
     }
 }
 
@@ -94,11 +84,6 @@ const cancel = () => {
 
 const createContactInAddressBook = () => {
     let contact = new Contact();
-    contact._id = new Date().getTime();
-    return getFormData(contact);
-}
-
-const getFormData = (contact) => {
     contact._firstName = document.forms["form"]["firstName"].value;
     contact._address = document.forms["form"]["address"].value;
     contact._city = document.forms["form"]["city"].value;
@@ -107,18 +92,6 @@ const getFormData = (contact) => {
     contact._zip = document.forms["form"]["zip"].value;
     console.log(contact.toString());
     return contact;
-}
-
-const createAndUpdateStorage = (contact) => {
-    let addressBookList = JSON.parse(localStorage.getItem("AddressBookList"));
-    if (addressBookList != undefined) {
-        addressBookList.push(contact);
-    } else {
-        addressBookList = [contact]
-    }
-    alert(addressBookList.toString());
-    localStorage.setItem("AddressBookList", JSON.stringify(addressBookList));
-    location.href = '../pages/homePage.html';
 }
 
 const resetForm = () => {

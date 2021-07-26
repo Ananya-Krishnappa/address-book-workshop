@@ -1,0 +1,40 @@
+{
+  "AddressBook": [
+    {
+      "id": 1,
+      "_firstName": "Mark",
+      "_address": "Whitefield",
+      "_state": "Karnataka",
+      "_city": "Bengaluru",
+      "_phoneNumber": "8765712345",
+      "_zip": "123456"
+    },
+    {
+      "id": 2,
+      "_firstName": "Harry",
+      "_address": "Banashankari",
+      "_city": "Mumbai",
+      "_state": "Kerala",
+      "_phoneNumber": "6758764567",
+      "_zip": "789654"
+    },
+    {
+      "_firstName": "Ananya",
+      "_address": "dcskDBVH",
+      "_city": "Mumbai",
+      "_state": "Maharashtra",
+      "_phoneNumber": "9876567432",
+      "_zip": "876543",
+      "id": 3
+    },
+    {
+      "id": 4,
+      "_firstName": "Sweety",
+      "_address": "asd fgh uytrkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+      "_city": "Chikmagalur",
+      "_state": "Maharashtra",
+      "_phoneNumber": "9876543456",
+      "_zip": "345678"
+    }
+  ]
+}

@@ -2,17 +2,22 @@ window.addEventListener('DOMContentLoaded', (event) => {
     prePopulateForm();
 });
 
-const getAddressBookDataFromLocalStorage = () => {
-    return localStorage.getItem('EditContact') ? JSON.parse(localStorage.getItem('EditContact')) : [];
-}
-
 /**
  * Function to populate contact
  */
 const prePopulateForm = () => {
-    let contact = getAddressBookDataFromLocalStorage();
-    if (contact[0]._id == extractIdFromUrl()) {
-        setForm(contact[0]);
+    let id = extractIdFromUrl();
+    if (id) {
+        const getUrl = `http://localhost:3000/AddressBook/${id}`;
+        makePromiseCall("GET", getUrl, true)
+            .then(responseText => {
+                console.log("Get Contact Data:" + responseText);
+                let contact = JSON.parse(responseText);
+                setForm(contact);
+            })
+            .catch(error => {
+                console.log("Get error status:" + JSON.stringify(error));
+            });
     }
 }
 
